@@ -1,0 +1,33 @@
+<h2>Make A New Planet!</h2>
+
+<%= form_for(@planet) do |f| %>
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+  <br>
+  <%= f.label :gas %>
+  <%= f.radio_button :gas, :true %>
+  <%= f.label :gas_true, :true %>
+  <%= f.radio_button :gas, :false %>
+  <%= f.label :gas_false, :false %>
+  <br>
+  <%= f.label "Establish first colony!" %>
+  <br>
+  <%= f.fields_for :colonies do |cf| %>
+    <%= cf.label :alien %>
+    <%= cf.collection_select :alien_id, @aliens, :id, :name %>
+    <br>
+    <%=  cf.label "Or make your own alien!" %>
+    <br>
+    <%=  cf.fields_for :alien do |af| %>
+      <%= af.label :name %>
+      <%= af.text_field :name %>
+      <br>
+      <%= af.label :population %>
+      <%= af.number_field :population %>
+    <% end %>
+    <%= cf.label :notes %>
+    <%= cf.text_area :notes %>
+  <% end %>
+  <br>
+  <%= f.submit %>
+<% end %>
